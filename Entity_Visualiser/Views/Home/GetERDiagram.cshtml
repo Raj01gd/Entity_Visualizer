@@ -1,0 +1,18 @@
+﻿@model Entity_Visualiser.Models.DBSchemaInfo
+@{
+    ViewBag.Title = "ERDiagram";
+}
+
+<h2>Database Structure Diagram</h2>
+
+<svg></svg>
+
+
+@section Scripts {
+    <script>
+        var nodes = @Html.Raw(Json.Encode(Model.nodes));
+        var links = @Html.Raw(Json.Encode(Model.links));
+    </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/d3files")
+}

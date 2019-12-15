@@ -1,0 +1,66 @@
+﻿@model Entity_Visualiser.Models.DBConnectionModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Database Information</h2>
+
+
+@using (Html.BeginForm("GetERDiagram", "Home", FormMethod.Get, new {id= "dbForm" ,onsubmit= "return validate();"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Server Name", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.ServerName, new { htmlAttributes = new {@id = "sName", @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Database Name", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.DataBaseName, new { htmlAttributes = new {@id="dName", @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Integrated Security Enabled", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.IsSecure, new SelectListItem[] { new SelectListItem { Value = "true", Text = "Yes" }, new SelectListItem { Value = "false", Text = "No" } }, "Select Option", new { @id="isIntSec",@class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group credentials hidden" >
+            @Html.Label("User Name", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @id= "userId", @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group credentials hidden">
+            @Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @id ="pwd" , @class = "form-control" } })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="submit" value="Submit" class="btn btn-default btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+   
+}
